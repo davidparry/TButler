@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent" 
+    android:layout_height="fill_parent"
+    android:orientation="vertical" 
+    android:background="@color/solid_white">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" android:background="@color/solid_white">
+     <TextView 
+    	android:id="@+id/helpme_description" 
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:textColor="@color/solid_black" android:layout_margin="5dip"
+    	android:textSize="13sp" android:text="@string/info_description"
+    	android:layout_marginTop="50dip" android:layout_marginBottom="20dip"
+    />
+       
+        <Button android:id="@+id/introYouTube"     
+        android:layout_width="190dip" android:layout_height="50dip"
+				android:text="Introduction Video (small)"
+				android:layout_margin="5dip"  /> 
+				 <Button android:id="@+id/introYouTube1"     
+        android:layout_width="190dip" android:layout_height="50dip"
+				android:text="Introduction Video (wide)"
+				android:layout_margin="5dip"  /> 
+		 <Button android:id="@+id/tweetYouTube"     
+        android:layout_width="190dip" android:layout_height="50dip"
+				android:text="Tweeting Video (small)"
+				android:layout_margin="5dip"  /> 
+				 <Button android:id="@+id/tweetYouTube1"     
+        android:layout_width="190dip" android:layout_height="50dip"
+				android:text="Tweeting Video (wide)"
+				android:layout_margin="5dip"  /> 
+				
+      
+           
+    </LinearLayout>
+        
+ </ScrollView>        

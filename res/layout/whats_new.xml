@@ -1,0 +1,33 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android">
+	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		android:layout_width="fill_parent" android:layout_height="wrap_content"
+		android:orientation="vertical">
+
+		<TextView android:id="@+id/titleWhatsNew"
+			android:layout_height="wrap_content" android:layout_width="wrap_content"
+			android:layout_marginLeft="10dip" android:layout_marginRight="20dip"
+			android:text="Features:" android:gravity="left"
+			android:textAppearance="?android:attr/textAppearanceMedium" 
+			android:textStyle="bold"
+			/>
+		<TextView 
+			android:layout_height="wrap_content" android:layout_width="wrap_content"
+			android:layout_marginLeft="20dip" android:layout_marginRight="10dip"
+			android:text="1. Add links to YouTube instruction videos see readme on menu" android:gravity="left"
+			android:textAppearance="?android:attr/textAppearanceMedium"  android:textSize="12dip"/>
+		
+		<TextView
+			android:layout_height="wrap_content" android:layout_width="wrap_content"
+			android:layout_marginLeft="10dip" android:layout_marginRight="20dip"
+			android:text="Bugs fixed:" android:gravity="left"
+			android:textAppearance="?android:attr/textAppearanceMedium" 
+			android:textStyle="bold"/>
+		<TextView 
+			android:layout_height="wrap_content" android:layout_width="wrap_content"
+			android:layout_marginLeft="20dip" android:layout_marginRight="10dip"
+			android:text="No bugs fixed or reported." android:gravity="left"
+			android:textAppearance="?android:attr/textAppearanceMedium"  android:textSize="12dip"/>
+		
+	</LinearLayout>
+
+</ScrollView>

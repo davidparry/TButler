@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">TButler</string>
+	<string name="add_terms_cat">Add search terms</string>
+	<string name="content_terms_cat">Preferences</string>
+
+	<string name="and_dialog_title">And terms to include</string>
+	<string name="and_title">And Include Term</string>
+	<string name="and_summary">Touch to add an And term to include in your search.</string>
+
+	<string name="or_dialog_title">Or terms to include</string>
+	<string name="or_title">Or Include Term</string>
+	<string name="or_summary">Touch to add an Or term to include in your search.</string>
+
+	<string name="ex_dialog_title">Exclude terms to include</string>
+	<string name="ex_title">Exclude Include Term</string>
+	<string name="ex_summary">Touch to add an Exclude term to include in your search.</string>
+
+	<string name="result_dialog_title">Add amount of Tweets</string>
+	<string name="result_title">Totally Tweets</string>
+	<string name="result_summary">Touch to add amount of tweets to keep on SDcard.</string>
+
+	<string name="rpp_dialog_title">Add amount of tweets per page</string>
+	<string name="rpp_title">Tweets per page</string>
+	<string name="rpp_summary">Touch to add amount of tweets per page the higher the number the slower the return.</string>
+
+	<string name="pin_dialog_title">Add PIN given by Twitter</string>
+	<string name="pin_title">PIN from Twitter</string>
+	<string name="pin_summary">This is the pin given by Twitter when authorizing this application through the Tweet button</string>
+
+
+	<string name="lang_dialog_title">Select language</string>
+	<string name="lang_title">Language</string>
+	<string name="lang_summary">Select language for returning tweets.</string>
+
+	<string name="loc_dialog_title">Enter Location LAT,LONG</string>
+	<string name="loc_title">Location</string>
+	<string name="loc_summary">If you enter a location this will be used in the request to Twitter.</string>
+
+	<string name="service_cat_title">Twitter Service</string>
+	<string name="service_title">Twitter Service</string>
+	<string name="service_summary">If you check mark this box than the service will run on selected time.</string>
+	<string name="service_time_title">Twitter Service Time</string>
+	<string name="service_time_summary">Select the time to wait for each query to Twitter.</string>
+	
+
+	<string name="start_button_title">Start</string>
+	<string name="latlonghint">Waiting for GPS location</string>
+	<string name="back_button_title">Back</string>
+	
+
+	<string name="wiz_andterms_radio"> All of these words</string>
+	<string name="wiz_orterms_radio"> Any of these words</string>
+	<string name="search_term_hint">Add your search words here.</string>
+	<string name="search_term_message">To do a more advance search.</string>
+	<string name="wiz_pref_msg">Reset preferences.</string>
+	
+	<string name="profile_name_label">Name:</string>
+	<string name="profile_location_label">Location:</string>
+	<string name="profile_text_label">Status:</string>
+	<string name="profile_total_friends_label">Friends:</string>
+	<string name="profile_desc_label">Description:</string>
+	<string name="profile_screen_name_label">Screen id:</string>
+	<string name="profile_url_label">Site:</string>
+	
+	<string name="butler_started">TButler</string>
+
+
+	<string name="service_message_title">TButler Service Started</string>
+	<string name="service_message">The service has started. You can either Continue using TButler or Close TButler and wait for notifications when the service returns results.</string>
+
+	<string name="and_terms_label">All of these words:</string>
+	<string name="and_terms_hint">Add your search words here.</string>
+	<string name="or_terms_label">Any of these words:</string>
+	<string name="or_terms_hint">Add your search words here.</string>
+	<string name="exc_terms_label">None of these words:</string>
+	<string name="exc_terms_hint">Add your search words here.</string>
+
+
+	<string name="service_description">It\'s simple add your words select the time interval and activate the service and forget about it. The service will search Twitter @ the interval and notify you when it finds a match.</string>
+	<string name="service_toggle_button_running">Service running</string>
+	<string name="service_toggle_button_stopped">Service stopped</string>
+	
+	<string name="tweet_prompt">What’s happening?</string>
+	
+	<string name="tweet_action">Tweet</string>
+	
+	<string name="info_description">Contact me @ d.dry.parry@gmail.com to ask for more features or to report a bug. There are 2 formats to the instructional videos pick which one you can best see on your phone. Thank You for using TButler</string>
+	
+ </resources>

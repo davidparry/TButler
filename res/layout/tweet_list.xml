@@ -1,0 +1,55 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+     
+    
+	 <ListView android:id="@+id/android:list"
+	    android:layout_width="fill_parent"
+	    android:layout_height="0px"
+	    android:layout_weight="1">
+	 </ListView>
+  
+  
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="6dip"
+		android:layout_marginBottom="0dip"
+		android:layout_marginLeft="8dip"
+		android:layout_marginRight="8dip"
+		>
+	    
+	   
+	   	<ImageButton
+	   	android:id="@+id/back" 
+	    	android:layout_width="50dip"
+	    	android:layout_height="50dip"
+	    	android:layout_marginLeft="5dip"
+	    	android:src="@android:drawable/ic_media_previous"  /> 	
+	    	 
+	   	<ImageButton
+	   	android:id="@+id/next" 
+	    	android:layout_width="50dip"
+	    	android:layout_height="50dip"
+	    	android:layout_marginLeft="25dip"
+	    	android:src="@android:drawable/ic_media_next"  />
+	    
+	    <ImageButton
+	   		android:id="@+id/search" 
+	    	android:layout_width="50dip"
+	    	android:layout_height="50dip"
+	    	android:layout_marginLeft="25dip"
+	    	android:src="@android:drawable/ic_menu_search"  />
+	    
+	    <ImageButton
+	   		android:id="@+id/menu" 
+	    	android:layout_width="50dip"
+	    	android:layout_marginLeft="25dip"
+	    	android:layout_height="50dip"
+	    	android:src="@android:drawable/ic_menu_more"  />
+	  
+	    		
+	</LinearLayout>    	
+</LinearLayout>
