@@ -67,6 +67,8 @@ public class TweetList extends ListActivity {
 			tweets = result.getTweets();
 		} else {
 			tweets = new ArrayList<Tweet>();
+		}
+		if(tweets == null || tweets.size() <=0){
 			Toast.makeText(this, "Sorry no results returned please try another search.", Toast.LENGTH_LONG).show();
 		}
 		this.adapter = new TweetsAdapter(this,R.layout.row , tweets);

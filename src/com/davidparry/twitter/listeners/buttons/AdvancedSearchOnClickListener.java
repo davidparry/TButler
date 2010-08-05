@@ -46,40 +46,33 @@ import com.davidparry.twitter.twitter4j.TwitterQuery;
  * @author david
  *
  */
-public class BasicSearchOnClickListener implements OnClickListener{
-	private static final String tag = "BasicSearchOnClickListener";
+public class AdvancedSearchOnClickListener implements OnClickListener{
+	private static final String tag = "AdvancedSearchOnClickListener";
 	private ButlerActivity ba;
 	/**
 	 * 
 	 */
-	public BasicSearchOnClickListener(ButlerActivity ba) {
+	public AdvancedSearchOnClickListener(ButlerActivity ba) {
 		this.ba = ba;
 	}
 
 	public void onClick(View v) {
 		Log.d(tag, "CLicked");
-		this.ba.getDialog("Performing basic search","Working please wait ...").show();
-		String terms = this.ba.getTextFieldValue(R.id.basic_search_terms);
-		if(StringUtils.isNotEmpty(terms)){
-			    ButlerTwitterAdapter adapter = new ButlerTwitterAdapter(ba);
-			    TwitterQuery twitterQuery = new TwitterQuery();
-			    if(this.ba.isChecked(R.id.wiz_orterm)){
-			    	twitterQuery.setOrTerms(terms);
-			    }else {
-			    	twitterQuery.setAndTerms(terms);
-			    }
-			    try {
-			    	twitterQuery.validate();
-			    	String q = twitterQuery.getQuery();
-					Query query = new Query(q);//twitterQuery.getQuery()
-					AsyncTwitter twitter = new AsyncTwitterFactory(adapter).getInstance();
-					twitter.search(query);
-				} catch (QueryValidationException e) {
-					Toast.makeText(this.ba.getContext(),e.getMessage() ,Toast.LENGTH_LONG).show();
-				}
-		} else {
+		this.ba.getDialog("Performing advanced search","Working please wait ...").show();
+		String andterms = this.ba.getTextFieldValue(R.id.and_search_terms);
+		String orterms =  this.ba.getTextFieldValue(R.id.or_search_terms);
+		String excterms =  this.ba.getTextFieldValue(R.id.exc_search_terms);
+		
+	    ButlerTwitterAdapter adapter = new ButlerTwitterAdapter(ba);
+	    TwitterQuery twitterQuery = new TwitterQuery(andterms,orterms,excterms);
+	    try {
+			twitterQuery.validate();
+			Query query = new Query(twitterQuery.getQuery());
+			AsyncTwitter twitter = new AsyncTwitterFactory(adapter).getInstance();
+			twitter.search(query);
+		} catch (QueryValidationException e) {
 			this.ba.closeDialog();
-			Toast.makeText(this.ba.getContext(),"Please fill in atleast one word to search." , Toast.LENGTH_LONG).show();
+			Toast.makeText(this.ba.getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
 		}
 	}
 

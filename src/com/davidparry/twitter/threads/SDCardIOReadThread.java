@@ -24,50 +24,55 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-package com.davidparry.twitter.twitter4j;
+package com.davidparry.twitter.threads;
 
-import twitter4j.QueryResult;
-import twitter4j.TwitterAdapter;
-import twitter4j.TwitterException;
-import twitter4j.TwitterMethod;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.davidparry.twitter.ButlerActivity;
+import com.davidparry.twitter.ButlerException;
 import com.davidparry.twitter.TweetList;
 import com.davidparry.twitter.TwitterPersistence;
 import com.davidparry.twitter.common.TwitterResult;
-import com.davidparry.twitter.threads.SDCardIOThread;
 
-public class ButlerTwitterAdapter extends TwitterAdapter {
-	private static final String tag = "ButlerTwitterAdapter";
-	
-	private ButlerActivity activity; 	
-	public ButlerTwitterAdapter(ButlerActivity activity) {
+public class SDCardIOReadThread implements Runnable {
+	private static final String tag = "SDCardIOThread";
+	private TwitterPersistence persistor;
+	private ButlerActivity activity;
+	public SDCardIOReadThread(TwitterPersistence persistor,ButlerActivity activity){
+		this.persistor = persistor;
 		this.activity = activity;
 	}
-	@Override
-	public void searched(QueryResult result) {
-		super.searched(result);
-		TwitterResult tweets = new TwitterResult(result);
-		// return to write the tweets to the screen don't wait for the write to card
-		Thread t = new Thread(new SDCardIOThread((TwitterPersistence)activity,tweets));
-		t.start();
-		activity.closeDialog();
-		Intent intent = new Intent();
-		intent.setClass(this.activity.getContext(), TweetList.class);
-		intent.putExtra("com.davidparry.twitter.tweets", tweets);
-		activity.runActivity(intent);
+	public void run() {
+		Message handlerMessage = new Message();
+		try {
+			handlerMessage.obj = persistor.readTweets();
+		} catch (ButlerException e) {
+			Log.e(tag, "Unable read Tweets from SDCard.", e);
+			handlerMessage.arg1 = 5;
+			handlerMessage.obj = e.toString();
+		}
+		handler.sendMessage(handlerMessage);
 	}
-	@Override
-	public void onException(TwitterException ex, TwitterMethod method) {
-		super.onException(ex, method);
-		Log.e(tag, "Error communicating with Twitter", ex);
-		activity.closeDialog();
-		Toast.makeText(activity.getContext(), ex.getMessage(), Toast.LENGTH_LONG).show();;
-	}
-	
-	
-
+	private Handler handler = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			Object obj = msg.obj;
+			if(msg.arg1 == 5){
+				Toast.makeText(activity.getContext(),"There are no Tweets saved to your SDCard\n"+msg.obj, Toast.LENGTH_LONG);
+			} else if(obj != null){
+				Intent intent = new Intent();
+				intent.setClass(activity.getContext(), TweetList.class);
+				intent.putExtra("com.davidparry.twitter.tweets", (TwitterResult)obj);
+				activity.runActivity(intent);
+			}else {
+				Toast.makeText(activity.getContext(),"There are no Tweets saved to your SDCard", Toast.LENGTH_LONG);
+			}
+			activity.closeDialog();
+		}
+	};
 }

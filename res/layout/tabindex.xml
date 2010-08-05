@@ -38,7 +38,7 @@
 			<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 				android:orientation="horizontal" android:layout_width="fill_parent"
 				android:layout_height="fill_parent" android:background="@color/solid_white" >
-				<EditText android:id="@+id/tweet_msg"
+				<EditText android:id="@+id/advanced_search_terms"
 					android:layout_width="fill_parent" android:layout_height="wrap_content"
 					android:focusable="true" android:layout_margin="3dip" android:maxLength="140" 
 					android:lines="4" android:hint="@string/tweet_prompt"
@@ -57,7 +57,7 @@
 					android:layout_width="75dip" android:layout_height="50dip"
 					android:text="@string/tweet_action"  android:layout_marginLeft="10dip" 
 					android:layout_marginTop="5dip"  />
-				<ImageButton android:id="@+id/wiz_more_button"
+				<ImageButton android:id="@+id/menu"
 					android:layout_width="50dip" android:layout_height="50dip"
 					android:src="@android:drawable/ic_menu_more"
 					android:layout_marginLeft="10dip" android:layout_marginTop="5dip" />

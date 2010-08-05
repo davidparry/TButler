@@ -36,14 +36,19 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RadioButton;
 import android.widget.TabHost;
 
 import com.davidparry.twitter.analytics.ButlerAnalytics;
 import com.davidparry.twitter.common.ActivityHelper;
 import com.davidparry.twitter.common.TwitterResult;
+import com.davidparry.twitter.listeners.buttons.AdvancedSearchOnClickListener;
 import com.davidparry.twitter.listeners.buttons.BasicSearchOnClickListener;
+import com.davidparry.twitter.listeners.buttons.ListTweetsOnClickListener;
 import com.davidparry.twitter.widgets.OptionMenu;
 
 public class ButlerTabActivity extends TabActivity implements ButlerActivity,TwitterPersistence {
@@ -70,6 +75,20 @@ public class ButlerTabActivity extends TabActivity implements ButlerActivity,Twi
                 .setContent(R.id.basic_advanced));
 	    ImageButton basic_search = (ImageButton) findViewById(R.id.basic_search_button);
 	    basic_search.setOnClickListener(new BasicSearchOnClickListener(this));
+	    ImageButton adv_search = (ImageButton) findViewById(R.id.adv_search_button);
+	    adv_search.setOnClickListener(new AdvancedSearchOnClickListener(this));
+	    ImageButton menu = (ImageButton) findViewById(R.id.menu);
+	    menu.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				openOptionsMenu();
+			}
+		}); 
+	    ImageButton list_button = (ImageButton) findViewById(R.id.list_button);
+	    list_button.setOnClickListener(new ListTweetsOnClickListener(this));
+	    
+	    
+	    
+	    
     }
 	
 	@Override
@@ -108,6 +127,17 @@ public class ButlerTabActivity extends TabActivity implements ButlerActivity,Twi
 			msg =text.getText().toString();
 		}
 		return msg;
+	}
+
+	
+	
+	public boolean isChecked(int id) {
+		RadioButton button = (RadioButton) findViewById(id);
+		if(button != null){
+			return button.isChecked();
+		} else {
+			return false;
+		}
 	}
 
 	public void writeTweets(TwitterResult result) throws ButlerException{
