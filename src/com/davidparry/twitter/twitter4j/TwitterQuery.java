@@ -91,10 +91,11 @@ public class TwitterQuery {
 		StringBuffer buf = new StringBuffer();
 		if(interms != null && interms.size() >0){
 			int i =0;
-			buf.append("ands=");
+			//buf.append("&ands=");
 			for(String s: interms){
 				if(i >0){
-					buf.append("+");
+					//buf.append("+");
+					buf.append("+AND+");
 				}
 				buf.append(s);
 				i++;
@@ -102,10 +103,11 @@ public class TwitterQuery {
 		}
 		if(onterms != null && onterms.size() >0){
 			int i =0;
-			buf.append("ors=");
+			//buf.append("&ors=");
 			for(String s: onterms){
 				if(i >0){
-					buf.append("+");
+					//buf.append("+");
+					buf.append("+OR+");
 				}
 				buf.append(s);
 				i++;
@@ -113,10 +115,14 @@ public class TwitterQuery {
 		}
 		if(exterms != null && exterms.size() >0){
 			int i =0;
-			buf.append("&nots=");
+			//buf.append("&nots=");
+			buf.append("-");
 			for(String s: exterms){
 				if(i >0){
-					buf.append("+");
+					//buf.append("+");
+				}
+				if(i>1){
+					buf.append("-");
 				}
 				buf.append(s);
 				i++;

@@ -26,25 +26,26 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 package com.davidparry.twitter.listeners;
 
+import android.content.Intent;
 import android.view.View;
 import android.view.View.OnLongClickListener;
 
-/**
- * @author david
- *
- */
+import com.davidparry.twitter.ButlerActivity;
+import com.davidparry.twitter.ProfileActivity;
+
 public class ProfileImageLongClickListener implements OnLongClickListener {
-
-	/**
-	 * 
-	 */
-	public ProfileImageLongClickListener() {
+	private String screenname;
+	private ButlerActivity activity;
+	public ProfileImageLongClickListener(String screenname,ButlerActivity activity){
+		this.screenname = screenname;
+		this.activity = activity;
 	}
-
-	/* (non-Javadoc)
-	 * @see android.view.View.OnLongClickListener#onLongClick(android.view.View)
-	 */
+	
 	public boolean onLongClick(View v) {
+		Intent intent = new Intent();
+		intent.putExtra("com.davidparry.twitter.profile", screenname);
+		intent.setClass(v.getContext(),ProfileActivity.class);
+		this.activity.runActivity(intent);
 		return false;
 	}
 

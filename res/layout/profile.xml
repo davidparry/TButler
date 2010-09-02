@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+
+	<LinearLayout android:orientation="vertical"
+		android:layout_width="fill_parent" android:layout_height="wrap_content">
+
+			<ImageView android:src="@drawable/icon" android:id="@+id/profile_icon_id"
+			android:layout_width="80dip" android:layout_height="100dip"
+			android:layout_margin="5dip" />
+		<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			android:orientation="horizontal" android:layout_width="fill_parent"
+			android:layout_height="fill_parent" android:paddingLeft="10dip" 
+			android:paddingTop="10dip">
+				<TextView 
+	    			android:layout_width="110dip"
+	    			android:layout_height="wrap_content"
+			    	android:textSize="18sp"
+			 	 	android:textColor="@color/solid_grey"
+			 	 	android:textStyle="bold"
+			 	 	android:text="@string/profile_name_label"
+			   />
+				<TextView 
+	    			android:id="@+id/profile_name" 
+	    			android:layout_width="215dip"
+	    			android:layout_height="wrap_content"
+			    	android:textColor="@color/solid_grey"
+			    	android:textSize="18sp"
+			    	android:paddingLeft="5px"
+			    	android:autoLink="all"
+    			/>
+    	</LinearLayout>
+    	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			android:orientation="horizontal" android:layout_width="fill_parent"
+			android:layout_height="fill_parent" android:paddingLeft="10dip" 
+			android:paddingTop="10dip">
+		
+    			<TextView 
+	    			android:layout_width="110dip"
+	    			android:layout_height="wrap_content"
+			    	android:textSize="18sp"
+			 	 	android:textColor="@color/solid_grey"
+			 	 	android:textStyle="bold"
+			 	 	android:text="@string/profile_location_label"
+			   />
+    			<TextView 
+	    			android:id="@+id/profile_location" 
+	    			android:layout_width="wrap_content"
+	    			android:layout_height="wrap_content"
+			    	android:textColor="@color/solid_grey"
+			    	android:textSize="18sp"
+			    	android:paddingLeft="5px"
+			   />
+			</LinearLayout>
+			<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			android:orientation="horizontal" android:layout_width="fill_parent"
+			android:layout_height="fill_parent" android:paddingLeft="10dip" 
+			android:paddingBottom="30px" android:paddingTop="10dip">
+		
+    			<TextView 
+	    			android:layout_width="110dip"
+	    			android:layout_height="wrap_content"
+			    	android:textSize="18sp"
+			 	 	android:textColor="@color/solid_grey"
+			 	 	android:textStyle="bold"
+			 	 	android:text="@string/profile_text_label"
+			   />
+    			<TextView 
+	    			android:id="@+id/profile_text"
+	    			android:layout_width="wrap_content"
+	    			android:layout_height="wrap_content"
+			    	android:textColor="@color/solid_grey"
+			    	android:textSize="18sp"
+			    	android:paddingLeft="5px"
+			   />
+			</LinearLayout>
+			<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			android:orientation="horizontal" android:layout_width="fill_parent"
+			android:layout_height="fill_parent" android:paddingLeft="10dip" 
+			android:paddingBottom="30px" android:paddingTop="10dip">
+				<TextView 
+	    			android:layout_width="110dip"
+	    			android:layout_height="wrap_content"
+			    	android:textSize="18sp"
+			 	 	android:textColor="@color/solid_grey"
+			 	 	android:textStyle="bold"
+			 	 	android:text="@string/profile_desc_label"
+			   />
+    			<TextView 
+	    			android:id="@+id/profile_desc" 
+	    			android:layout_width="wrap_content"
+	    			android:layout_height="wrap_content"
+			    	android:textColor="@color/solid_grey"
+			    	android:textSize="18sp"
+			    	android:paddingLeft="5px"
+			   />
+			</LinearLayout>
+		<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			android:orientation="horizontal" android:layout_width="fill_parent"
+			android:layout_height="fill_parent" android:paddingLeft="10dip" 
+			android:paddingBottom="30px" android:paddingTop="10dip">
+				<TextView 
+	    			android:layout_width="110dip"
+	    			android:layout_height="wrap_content"
+			    	android:textSize="18sp"
+			 	 	android:textColor="@color/solid_grey"
+			 	 	android:textStyle="bold"
+			 	 	android:text="@string/profile_screen_name_label"
+			   />
+    			<TextView 
+	    			android:id="@+id/profile_screen_name" 
+	    			android:layout_width="wrap_content"
+	    			android:layout_height="wrap_content"
+			    	android:textColor="@color/solid_grey"
+			    	android:textSize="18sp"
+			    	android:paddingLeft="5px"
+			   />
+			</LinearLayout>
+			<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			android:orientation="horizontal" android:layout_width="fill_parent"
+			android:layout_height="fill_parent" android:paddingLeft="10dip" 
+			android:paddingBottom="30px" android:paddingTop="10dip">
+				<TextView 
+	    			android:layout_width="110dip"
+	    			android:layout_height="wrap_content"
+			    	android:textSize="18sp"
+			 	 	android:textColor="@color/solid_grey"
+			 	 	android:textStyle="bold"
+			 	 	android:text="@string/profile_url_label"
+			   />
+    			<TextView 
+	    			android:id="@+id/profile_url" 
+	    			android:layout_width="wrap_content"
+	    			android:layout_height="wrap_content"
+			    	android:textColor="@color/solid_grey"
+			    	android:textSize="18sp"
+			    	android:paddingLeft="5px"
+			    	android:autoLink="web"
+			   />
+			</LinearLayout>
+			<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			android:orientation="horizontal" android:layout_width="fill_parent"
+			android:layout_height="fill_parent" android:paddingLeft="10dip" 
+			android:paddingBottom="30px" android:paddingTop="10dip">
+				<TextView 
+	    			android:layout_width="110dip"
+	    			android:layout_height="wrap_content"
+			    	android:textSize="18sp"
+			 	 	android:textColor="@color/solid_grey"
+			 	 	android:textStyle="bold"
+			 	 	android:text="@string/profile_total_friends_label"
+			   />
+    			<TextView 
+	    			android:id="@+id/profile_total_friends" 
+	    			android:layout_width="wrap_content"
+	    			android:layout_height="wrap_content"
+			    	android:textColor="@color/solid_grey"
+			    	android:textSize="18sp"
+			    	android:paddingLeft="5px"
+			   />
+			</LinearLayout>
+	</LinearLayout>
+</ScrollView>

@@ -31,7 +31,9 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.davidparry.twitter.FileListActivity;
 import com.davidparry.twitter.InfoActivity;
+import com.davidparry.twitter.ServiceActivity;
 
 public class OptionMenu {
 
@@ -47,7 +49,7 @@ public class OptionMenu {
 		mi.setIntent(res);
 		MenuItem st = menu.getItem(1);
 		Intent sti = new Intent();
-		//sti.setClass(baseContext,FileListActivity.class);
+		sti.setClass(baseContext,FileListActivity.class);
 		st.setIntent(sti);
 		MenuItem st3 = menu.getItem(2);
 		Intent sti3 = new Intent();
@@ -55,7 +57,7 @@ public class OptionMenu {
 		st3.setIntent(sti3);
 		MenuItem st4 = menu.getItem(3);
 		Intent sti4 = new Intent();
-		//sti4.setClass(baseContext, ServiceActivity.class);
+		sti4.setClass(baseContext, ServiceActivity.class);
 		st4.setIntent(sti4);
 		mi.setIcon(android.R.drawable.ic_menu_view);
 		st3.setIcon(android.R.drawable.ic_menu_preferences);

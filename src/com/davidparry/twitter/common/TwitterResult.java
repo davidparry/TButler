@@ -46,7 +46,7 @@ public class TwitterResult implements Serializable{
 	private int resultsPerPage;
 	private long sinceId;
 	private String warning;
-	
+	private String nextPage;
 	public TwitterResult(){}
 	public TwitterResult(QueryResult result){
 		if(result != null){
@@ -63,8 +63,12 @@ public class TwitterResult implements Serializable{
 			this.resultsPerPage =result.getResultsPerPage();
 			this.sinceId = result.getSinceId();
 			this.warning = result.getWarning();
+			this.nextPage = result.getNextPage();
 		}
 		
+	}
+	public String getNextPage() {
+		return nextPage;
 	}
 	public List<Tweet> getTweets() {
 		return tweets;
@@ -101,6 +105,8 @@ public class TwitterResult implements Serializable{
 		temp = Double.doubleToLongBits(completedIn);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		result = prime * result + (int) (maxId ^ (maxId >>> 32));
+		result = prime * result
+				+ ((nextPage == null) ? 0 : nextPage.hashCode());
 		result = prime * result + page;
 		result = prime * result + ((query == null) ? 0 : query.hashCode());
 		result = prime * result
@@ -124,6 +130,11 @@ public class TwitterResult implements Serializable{
 				.doubleToLongBits(other.completedIn))
 			return false;
 		if (maxId != other.maxId)
+			return false;
+		if (nextPage == null) {
+			if (other.nextPage != null)
+				return false;
+		} else if (!nextPage.equals(other.nextPage))
 			return false;
 		if (page != other.page)
 			return false;
@@ -156,10 +167,11 @@ public class TwitterResult implements Serializable{
 	@Override
 	public String toString() {
 		return "TwitterResult [completedIn=" + completedIn + ", maxId=" + maxId
-				+ ", page=" + page + ", query=" + query + ", refreshUrl="
-				+ refreshUrl + ", resultsPerPage=" + resultsPerPage
-				+ ", sinceId=" + sinceId + ", tweets=" + tweets + ", warning="
-				+ warning + "]";
+				+ ", nextPage=" + nextPage + ", page=" + page + ", query="
+				+ query + ", refreshUrl=" + refreshUrl + ", resultsPerPage="
+				+ resultsPerPage + ", sinceId=" + sinceId + ", tweets="
+				+ tweets + ", warning=" + warning + "]";
 	}
+	
 	
 }

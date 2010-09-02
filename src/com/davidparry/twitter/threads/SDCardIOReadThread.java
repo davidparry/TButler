@@ -27,7 +27,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package com.davidparry.twitter.threads;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -48,6 +47,7 @@ public class SDCardIOReadThread implements Runnable {
 		this.activity = activity;
 	}
 	public void run() {
+		Log.d(tag, "Inside run of reading tweets");
 		Message handlerMessage = new Message();
 		try {
 			handlerMessage.obj = persistor.readTweets();

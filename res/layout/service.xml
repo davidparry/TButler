@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent" android:background="@color/solid_white">
+
+	<LinearLayout android:orientation="vertical"
+		android:layout_width="fill_parent" android:layout_height="wrap_content">
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			android:orientation="horizontal" android:layout_width="fill_parent"
+			android:layout_height="fill_parent" android:background="@color/solid_white">
+
+		<ImageView android:src="@drawable/icon"
+			android:layout_width="60dip" android:layout_height="80dip"
+			android:layout_marginLeft="3dip" android:layout_marginTop="1dip" 
+			android:layout_marginBottom="1dip" />
+			
+		 <TextView 
+    	android:id="@+id/service_description" 
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:textColor="@color/solid_black" android:layout_margin="5dip"
+    	android:textSize="13sp" android:text="@string/service_description"
+    />
+			
+	</LinearLayout>	
+			
+
+		<LinearLayout android:orientation="vertical"
+		android:layout_width="fill_parent" android:layout_height="wrap_content">
+				<TextView 
+	    			android:layout_width="fill_parent"
+	    			android:layout_height="wrap_content"
+			    	android:textColor="@color/solid_black"
+					android:layout_marginTop="1dip" 
+					android:layout_marginLeft="5dip" 
+			 	 	android:text="@string/and_terms_label"
+			 	 	android:textSize="18sp" 
+			   />
+				<EditText android:id="@+id/and_search_terms"
+			android:layout_width="fill_parent" android:layout_height="wrap_content"
+			android:focusable="true" 	android:layout_marginTop="3dip" 
+					android:layout_marginLeft="5dip" 
+				android:hint="@string/and_terms_hint" android:singleLine="true" />
+			<TextView 
+	    			android:layout_width="wrap_content"
+	    			android:layout_height="wrap_content"
+			    	android:textColor="@color/solid_black"
+						android:layout_marginTop="3dip" 
+					android:layout_marginLeft="5dip" 
+			 	 	android:text="@string/or_terms_label"
+			 	 	android:textSize="18sp"
+			   />
+				<EditText android:id="@+id/or_search_terms"
+			android:layout_width="fill_parent" android:layout_height="wrap_content"
+			android:focusable="true" 	android:layout_marginTop="3dip" 
+					android:layout_marginLeft="5dip" 
+			 	android:hint="@string/or_terms_hint" android:singleLine="true"/>
+			
+			<TextView 
+	    			android:layout_width="fill_parent"
+	    			android:layout_height="wrap_content"
+			    	android:textColor="@color/solid_black"
+						android:layout_marginTop="3dip" 
+					android:layout_marginLeft="5dip" 
+			 	 	android:text="@string/exc_terms_label"
+			 	 	android:textSize="18sp"
+			   />
+				<EditText android:id="@+id/exc_search_terms"
+			android:layout_width="fill_parent" android:layout_height="wrap_content"
+			android:focusable="true" 	android:layout_marginTop="3dip" 
+					android:layout_marginLeft="5dip" 
+				android:hint="@string/exc_terms_hint" android:singleLine="true"/>
+	</LinearLayout>
+		<LinearLayout android:orientation="vertical"
+		android:layout_width="fill_parent" android:paddingTop="3dip"
+        android:paddingLeft="5dip"
+        android:layout_height="wrap_content">
+	 <Spinner android:id="@+id/service_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawSelectorOnTop="true"
+        android:prompt="@string/service_time_title"
+        android:entries="@array/servicetimes" 
+        
+    />
+	</LinearLayout>
+		<LinearLayout android:orientation="horizontal" 
+		android:layout_width="fill_parent" android:layout_height="58dip">
+	 
+	 <ToggleButton android:id="@+id/service_button"
+            android:layout_width="120dip"
+            android:layout_height="50dip" 
+			android:layout_marginLeft="5dip" 
+			android:textOn="@string/service_toggle_button_running"
+			android:textOff="@string/service_toggle_button_stopped"
+            android:width="130dip" android:layout_marginTop="3dip"/>
+	
+	
+	 <ImageButton android:id="@+id/back_to_results"
+				android:layout_width="50dip" android:layout_height="50dip"
+				android:src="@android:drawable/ic_menu_recent_history"
+				android:layout_marginTop="3dip"
+				android:layout_marginLeft="10dip"
+				/>
+	<ImageButton android:id="@+id/save_service_data"
+				android:layout_width="50dip" android:layout_height="50dip"
+				android:src="@android:drawable/ic_menu_save"
+				android:layout_marginTop="3dip"
+				android:layout_marginLeft="10dip"
+				/>
+	
+	
+	</LinearLayout>
+	
+	</LinearLayout>
+</ScrollView>

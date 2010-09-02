@@ -26,13 +26,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 package com.davidparry.twitter.common;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -76,20 +74,6 @@ public class ActivityHelper {
 				Toast.makeText(this.activity,extras.getString(INTENT_MESSAGE_KEY) , Toast.LENGTH_LONG);
 			}
 		}
-	}
-	/**
-	 * @param message
-	 */
-	public void startActivity(Class activityClass,String result,String message){
-		Intent rt = new Intent();
-		if(result != null){
-			rt.putExtra(INTENT_RESULT_KEY, result);
-		}
-		if(message != null){
-			rt.putExtra(INTENT_MESSAGE_KEY, message);
-		}
-		rt.setClass(this.activity,activityClass);
-		this.activity.startActivity(rt);
 	}
 	
 	
@@ -138,9 +122,29 @@ public class ActivityHelper {
 	        }
    }
 	
-	public void writeTweets(TwitterResult result) throws ButlerException {
+	public synchronized void writeTweets(TwitterResult result) throws ButlerException {
 		if(checkState()){
-			writeXStreamObject(result);
+			Log.d(tag,"inside writeTweets");
+			try{
+			TwitterResult old = readTweets();
+				if(hasTweets(old)){
+					if(hasTweets(result)){
+						int totalSize = 22;
+						// need to check for setting of amount to store
+						int tweetsize =  result.getTweets().size();
+						int oldsize = old.getTweets().size();
+					    int sum = tweetsize + oldsize;
+						if(sum >= totalSize){
+					    	int diff = sum -totalSize;
+					    	int end = oldsize- diff;
+							result.getTweets().addAll(old.getTweets().subList(0, end));
+					    }
+					} 
+				}
+				writeXStreamObject(result);
+			} catch(Exception er){
+				Log.e(tag, "error in adding tweets ", er);
+			}
 		}
 	}
 	public TwitterResult readTweets(){
@@ -159,14 +163,18 @@ public class ActivityHelper {
 	}
 	
 	private TwitterResult readXStreamObject(){
+		  Log.d(tag, "Inside readXStream");
 		  XStream xs = new XStream(new DomDriver());
 		  TwitterResult result = new TwitterResult();
 	        try {
 	            FileInputStream fis = new FileInputStream(TWEETS_FILE_PATH);
+	            Log.d(tag, "FileInputStream"+fis+"  xs"+xs);
 	            xs.fromXML(fis, result);
-	        } catch (FileNotFoundException ex) {
+	            Log.d(tag, "results "+result);
+		    } catch (FileNotFoundException ex) {
 	            Log.e(tag, "Error reading XStreamFile", ex);
 	        }
+	        Log.d(tag, "Result"+result);
 	        return result;
 	}
 	
@@ -181,7 +189,13 @@ public class ActivityHelper {
 	        }
 	}
 	
-	
+	private boolean hasTweets(TwitterResult result){
+		if(result != null && result.getTweets() != null && result.getTweets().size()>0){
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 	
 		

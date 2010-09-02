@@ -29,8 +29,12 @@ package com.davidparry.twitter;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+
 import android.app.ListActivity;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
@@ -38,32 +42,45 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.davidparry.twitter.common.ActivityHelper;
 import com.davidparry.twitter.common.Tweet;
 import com.davidparry.twitter.common.TwitterResult;
 import com.davidparry.twitter.listeners.ProfileImageLongClickListener;
+import com.davidparry.twitter.listeners.buttons.ListTweetsOnClickListener;
+import com.davidparry.twitter.listeners.buttons.NextPageOnClickListener;
 import com.davidparry.twitter.threads.ImageIconLoaderThread;
+import com.davidparry.twitter.threads.StatusLongClickListener;
+import com.davidparry.twitter.widgets.OptionMenu;
 
-public class TweetList extends ListActivity {
+public class TweetList extends ListActivity implements ButlerActivity,TwitterPersistence{
 	private static final String tag ="TweetList";
 	private TweetsAdapter adapter;
 	protected Drawable defaultImage = null;
+	private ProgressDialog pd;
+	private ActivityHelper helper;
+
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		defaultImage = new BitmapDrawable(BitmapFactory
+		helper = new ActivityHelper(this);
+	    defaultImage = new BitmapDrawable(BitmapFactory
 				.decodeResource(this.getResources(),
 						android.R.drawable.presence_busy));
 		setContentView(R.layout.tweet_list);
 		Bundle extras = getIntent().getExtras();
 		List<Tweet> tweets = null;
+		TwitterResult result = null;
 		if(extras != null){
-			TwitterResult result = (TwitterResult)extras.get("com.davidparry.twitter.tweets");
+			result = (TwitterResult)extras.get("com.davidparry.twitter.tweets");
 			tweets = result.getTweets();
 		} else {
 			tweets = new ArrayList<Tweet>();
@@ -73,12 +90,42 @@ public class TweetList extends ListActivity {
 		}
 		this.adapter = new TweetsAdapter(this,R.layout.row , tweets);
 		setListAdapter(this.adapter);
+		
+		 ImageButton search = (ImageButton) findViewById(R.id.search);
+		 search.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+					Intent intent = new Intent();
+					intent.setClass(v.getContext(), ButlerTabActivity.class);
+					startActivity(intent);
+				}
+			}); 
+		 ImageButton menu = (ImageButton) findViewById(R.id.menu);
+		    menu.setOnClickListener(new OnClickListener() {
+				public void onClick(View v) {
+					openOptionsMenu();
+				}
+			});
+
+	    	ImageButton next = (ImageButton) findViewById(R.id.next);
+		    if(result != null && StringUtils.isNotEmpty(result.getNextPage())){
+		    	next.setOnClickListener(new NextPageOnClickListener(this,result.getNextPage()));   
+		    } else {
+		    	next.setVisibility(View.INVISIBLE);
+		    }
+			ImageButton back = (ImageButton) findViewById(R.id.back);
+			back.setOnClickListener(new ListTweetsOnClickListener(this));
 	}
-	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		super.onCreateOptionsMenu(menu);
+		return new OptionMenu().setupOptionMenu(menu, getBaseContext());
+	}
 	public class TweetsAdapter extends ArrayAdapter<Tweet> {
 		private List<Tweet> tweets;
+		private ButlerActivity activity;
 		public TweetsAdapter(Context context, int textViewResourceId,List<Tweet> list){
 			super(context,textViewResourceId,list);
+			activity = (ButlerActivity) context;
 			this.tweets = list;
 		}
 		@Override
@@ -128,18 +175,14 @@ public class TweetList extends ListActivity {
 				v = vi.inflate(R.layout.row, null);
 			}
 			
-			Tweet tweet = getItem(position);
+			    Tweet tweet = getItem(position);
 				ImageView iv = (ImageView) v.findViewById(R.id.list_image);
 				if (iv != null) {
-					if(iv.getDrawable() ==null){
+					//if(iv.getDrawable() ==null){
 						Thread t = new Thread(new ImageIconLoaderThread(tweet.getProfileImageUrl(), iv,defaultImage));
 						t.start();
-						iv.setOnLongClickListener(new ProfileImageLongClickListener());
-					}
-					
-					//ImageObject obj = getImage(getBaseContext(), tweet.getProfileImageUrl());
-					//iv.setImageDrawable(obj.getDrawable());
-					//iv.setOnLongClickListener(new ProfileImageLongClickListener(it.getUserId()));
+						iv.setOnLongClickListener(new ProfileImageLongClickListener(tweet.getFromUser(),activity));
+					//}
 				}
 				TextView tv = (TextView) v.findViewById(R.id.list_value);
 				Typeface acmesa = Typeface.createFromAsset(getAssets(), "fonts/acmesa.TTF");
@@ -147,15 +190,59 @@ public class TweetList extends ListActivity {
 				tv.setTypeface(acmesa);
 				if (tv != null) {
 					tv.setText(tweet.getText());
-					//tv.setOnLongClickListener(new StatusLongClickListener(it));
+					tv.setOnLongClickListener(new StatusLongClickListener(tweet));
 				}
 			
 			return v;
 		}
+	}
+
+	public void closeDialog() {
+		if(pd != null){
+			pd.cancel();
+		}
+	}
+
+
+	public Context getContext() {
+		return this;
+	}
+
+
+	public ProgressDialog getDialog(String title, String msg) {
+		if(pd == null){
+			pd = new ProgressDialog(this);
+			pd.setIcon(R.drawable.icon);
+			pd.setIndeterminate(true);
+		}
+		pd.setMessage(msg);
+		pd.setTitle(title);
+		return pd;
+	}
+
+
+	public String getTextFieldValue(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	public boolean isChecked(int id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+	public void runActivity(Intent intent) {
+		startActivity(intent);
 		
-		
-		
-		
+	}
+	public void writeTweets(TwitterResult result) throws ButlerException{
+		helper.writeTweets(result);
+	}
+
+	public TwitterResult readTweets() throws ButlerException {
+		return helper.readTweets();
 	}
 	
 }

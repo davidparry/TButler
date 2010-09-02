@@ -1,0 +1,32 @@
+<resources>
+<string-array name="termvalues">
+<item>344</item>
+<item>345</item>
+ </string-array>
+ <string-array name="termids">
+ 	<item>ssf</item>
+ 	<item>another</item>
+ </string-array>
+ 
+<string-array name="langvalues">
+	<item>English</item>
+	<item>All Languages</item>
+</string-array>
+<string-array name="langids">
+	<item>en</item>
+	<item>all</item>
+</string-array>
+<string-array name="servicetimes">
+	<item>15 min</item>
+	<item>30 min</item>
+	<item>60 min</item>
+	<item>12 hours</item>
+	<item>1 day</item>
+</string-array>
+ <string-array name="servicetimesids">
+	<item>15</item>
+	<item>30</item>
+	<item>720</item>
+	<item>1440</item>
+</string-array>
+ </resources>

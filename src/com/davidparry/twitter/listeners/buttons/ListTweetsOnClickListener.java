@@ -26,24 +26,14 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 package com.davidparry.twitter.listeners.buttons;
 
-import org.apache.commons.lang.StringUtils;
-
-import twitter4j.AsyncTwitter;
-import twitter4j.AsyncTwitterFactory;
-import twitter4j.Query;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Toast;
 
 import com.davidparry.twitter.ButlerActivity;
-import com.davidparry.twitter.R;
 import com.davidparry.twitter.TwitterPersistence;
-import com.davidparry.twitter.exception.QueryValidationException;
 import com.davidparry.twitter.threads.SDCardIOReadThread;
-import com.davidparry.twitter.twitter4j.ButlerTwitterAdapter;
-import com.davidparry.twitter.twitter4j.TwitterQuery;
-import com.thoughtworks.xstream.persistence.PersistenceStrategy;
 
 /**
  * @author david
@@ -61,8 +51,8 @@ public class ListTweetsOnClickListener implements OnClickListener{
 
 	public void onClick(View v) {
 		Log.d(tag, "CLicked");
-		this.ba.getDialog("Retrieving tweets from disk","Working please wait ...").show();
 		Thread runner = new Thread(new SDCardIOReadThread((TwitterPersistence)ba, ba));
+		this.ba.getDialog("Retrieving tweets.","Working please wait ...").show();
 		try {
 			runner.run();
 		} catch (Exception e) {

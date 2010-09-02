@@ -38,7 +38,7 @@ import com.davidparry.twitter.ButlerActivity;
 import com.davidparry.twitter.TweetList;
 import com.davidparry.twitter.TwitterPersistence;
 import com.davidparry.twitter.common.TwitterResult;
-import com.davidparry.twitter.threads.SDCardIOThread;
+import com.davidparry.twitter.threads.SDCardIOWriteThread;
 
 public class ButlerTwitterAdapter extends TwitterAdapter {
 	private static final String tag = "ButlerTwitterAdapter";
@@ -52,7 +52,7 @@ public class ButlerTwitterAdapter extends TwitterAdapter {
 		super.searched(result);
 		TwitterResult tweets = new TwitterResult(result);
 		// return to write the tweets to the screen don't wait for the write to card
-		Thread t = new Thread(new SDCardIOThread((TwitterPersistence)activity,tweets));
+		Thread t = new Thread(new SDCardIOWriteThread((TwitterPersistence)activity,tweets));
 		t.start();
 		activity.closeDialog();
 		Intent intent = new Intent();

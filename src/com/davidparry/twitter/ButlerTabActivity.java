@@ -82,7 +82,15 @@ public class ButlerTabActivity extends TabActivity implements ButlerActivity,Twi
 			public void onClick(View v) {
 				openOptionsMenu();
 			}
-		}); 
+		});
+	    ImageButton adv_more_button = (ImageButton) findViewById(R.id.adv_more_button);
+	    adv_more_button.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				openOptionsMenu();
+			}
+		});
+	    ImageButton adv_list_button = (ImageButton) findViewById(R.id.adv_list_button);
+	    adv_list_button.setOnClickListener(new ListTweetsOnClickListener(this)); 
 	    ImageButton list_button = (ImageButton) findViewById(R.id.list_button);
 	    list_button.setOnClickListener(new ListTweetsOnClickListener(this));
 	    
@@ -142,7 +150,6 @@ public class ButlerTabActivity extends TabActivity implements ButlerActivity,Twi
 
 	public void writeTweets(TwitterResult result) throws ButlerException{
 		helper.writeTweets(result);
-		
 	}
 
 	public TwitterResult readTweets() throws ButlerException {
