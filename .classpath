@@ -4,10 +4,8 @@
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry kind="lib" path="/opt/ewb/TwitterRelease/oauth/libGoogleAnalytics.jar"/>
-	<classpathentry kind="lib" path="/opt/ewb/TwitterRelease/oauth/signpost-core-1.2.1.jar" sourcepath="C:/opt/apps/OAuthTwitterExample/kaeppler-signpost-6e073b8/java-core.zip"/>
-	<classpathentry kind="lib" path="/opt/ewb/TwitterRelease/oauth/signpost-commonshttp4-1.2.1.jar"/>
-	<classpathentry kind="lib" path="/opt/ewb/SharedLibs/twitter4j-core-2.1.3-SNAPSHOT.jar" sourcepath="/opt/apps/twitter4j/twitter4j-core/twitter4j-core-2.1.3-SNAPSHOT-sources.jar"/>
 	<classpathentry kind="lib" path="/opt/ewb/SharedLibs/commons-lang-2.5.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Twitter4J"/>
 	<classpathentry kind="lib" path="/opt/ewb/SharedLibs/xstream-1.3.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
