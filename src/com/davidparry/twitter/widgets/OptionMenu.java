@@ -34,6 +34,7 @@ import android.view.MenuItem;
 import com.davidparry.twitter.FileListActivity;
 import com.davidparry.twitter.InfoActivity;
 import com.davidparry.twitter.ServiceActivity;
+import com.davidparry.twitter.TweetPreferenceActivity;
 
 public class OptionMenu {
 
@@ -53,7 +54,7 @@ public class OptionMenu {
 		st.setIntent(sti);
 		MenuItem st3 = menu.getItem(2);
 		Intent sti3 = new Intent();
-		//sti3.setClass(baseContext, TweetPreferenceActivity.class);
+		sti3.setClass(baseContext, TweetPreferenceActivity.class);
 		st3.setIntent(sti3);
 		MenuItem st4 = menu.getItem(3);
 		Intent sti4 = new Intent();

@@ -35,6 +35,8 @@ import android.text.ClipboardManager;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.davidparry.twitter.common.ActivityHelper;
+import com.davidparry.twitter.common.Item;
 import com.davidparry.twitter.common.Tweet;
 
 public class ActionButtonDialogOnClickListener implements OnClickListener {
@@ -51,8 +53,8 @@ public class ActionButtonDialogOnClickListener implements OnClickListener {
 		AlertDialog d = (AlertDialog) dialog;
         try{
             if("Save".equalsIgnoreCase(items[which].toString())){
-	        	//String file = Util.writeItemToFile(this.tweet);
-	        	//Toast.makeText( d.getContext().getApplicationContext(), "Item saved on sdcard location" + file , Toast.LENGTH_LONG).show();
+	        	String file = ActivityHelper.writeItemToFile(new Item(this.tweet));
+            	Toast.makeText( d.getContext().getApplicationContext(), "Item saved on sdcard location" + file , Toast.LENGTH_LONG).show();
 	        } else if("Email".equalsIgnoreCase(items[which].toString())){
 	        	Toast.makeText( d.getContext().getApplicationContext(), "Email application starting..." , Toast.LENGTH_SHORT).show();
 	        	Log.d(TAG, "Sending email "+ this.tweet.getFromUser()); 

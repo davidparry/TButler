@@ -26,13 +26,18 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 package com.davidparry.twitter.common;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.FileWriter;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
+import twitter4j.Query;
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -55,25 +60,60 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 
 public class ActivityHelper {
 	private static final String tag = "ActivityHelper";
-	private Activity activity;
+	private Context activity;
 	private static String INTENT_MESSAGE_KEY = "com.davidparry.twitter.message";
 	private static String INTENT_RESULT_KEY = "com.davidparry.twitter.result";
 	private static final String VERSION = "13";
 	public static final String TWEETS_FILE_PATH = "/sdcard/tbutler.ser";
+	private Map<String,String> userIcons = (Map<String,String>) Collections.synchronizedMap(new HashMap<String,String>());
 	
-	public ActivityHelper(Activity activity){
+	public Map<String,String> getUserIcons() {
+		return userIcons;
+	}
+	public ActivityHelper(Context activity){
 		this.activity = activity;
 	}
 	/**
 	 * shows the toast message from the message in the Intent
 	 */
-	public void showToastMessage(){
-		Bundle extras = this.activity.getIntent().getExtras();
+	public void showToastMessage(Bundle extras){
 		if (extras != null) {
 			if (extras.get(INTENT_MESSAGE_KEY) != null) {
 				Toast.makeText(this.activity,extras.getString(INTENT_MESSAGE_KEY) , Toast.LENGTH_LONG);
 			}
 		}
+	}
+	
+	public void initProperties(Query query){
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this.activity);
+		query.setLang(prefs.getString("lang_key", "en"));
+		query.setRpp(Integer.parseInt(prefs.getString("tweetrpp", "20")));
+		
+	}
+	
+	public static String writeItemToFile(Item item) {
+		FileWriter f = null;
+		String path = null;
+		try {
+			File file = new File(createTbutlerFolder() + item.getFileName()
+					+ ".html");
+			Log.d(tag, "file to be written:" + file);
+			if (!file.exists()) {
+				file.createNewFile();
+			}
+			f = new FileWriter(file, false);
+			f.write(item.toFileString());
+			f.flush();
+			path = file.getAbsolutePath();
+		} catch (Exception er) {
+			Log.e(tag, "Error writing file ", er);
+		} finally {
+			try {
+				f.close();
+			} catch (Exception e) {
+			}
+		}
+		return path;
 	}
 	
 	
@@ -94,7 +134,7 @@ public class ActivityHelper {
 					new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface d, int which) {
 							Dialog dialog = (Dialog) d;
-							SharedPreferences prefs = activity.getPreferences(Context.MODE_WORLD_WRITEABLE);
+							SharedPreferences prefs =  PreferenceManager.getDefaultSharedPreferences(dialog.getContext());
 							Editor edit = prefs.edit();
 					        edit.putString("whatsnew", VERSION);
 					        edit.commit();
@@ -129,7 +169,8 @@ public class ActivityHelper {
 			TwitterResult old = readTweets();
 				if(hasTweets(old)){
 					if(hasTweets(result)){
-						int totalSize = 22;
+						SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this.activity);
+						int totalSize =  Integer.parseInt(prefs.getString("tweetcache", "100"));
 						// need to check for setting of amount to store
 						int tweetsize =  result.getTweets().size();
 						int oldsize = old.getTweets().size();
@@ -153,6 +194,21 @@ public class ActivityHelper {
 		}
 		return null;
 	}
+	public static String createTbutlerFolder() {
+		String folder = "/sdcard/tbutler";
+		if(checkState()){
+			try {
+				File file = new File(folder);
+				if (!file.exists()) {
+					file.mkdir();
+				}
+			} catch (Exception er) {
+				Log.e(tag, "error creating folder", er);
+			}
+		}
+		return folder + "/";
+	}
+	
 	public static boolean checkState(){
 		boolean mExternalStorageAvailable = false;
 		String state = Environment.getExternalStorageState();
@@ -162,7 +218,7 @@ public class ActivityHelper {
 		return mExternalStorageAvailable;
 	}
 	
-	private TwitterResult readXStreamObject(){
+	private static TwitterResult readXStreamObject(){
 		  Log.d(tag, "Inside readXStream");
 		  XStream xs = new XStream(new DomDriver());
 		  TwitterResult result = new TwitterResult();
@@ -178,7 +234,7 @@ public class ActivityHelper {
 	        return result;
 	}
 	
-	private void writeXStreamObject(TwitterResult result) throws ButlerException{
+	private static void writeXStreamObject(TwitterResult result) throws ButlerException{
 		 XStream xs = new XStream();
 	        try {
 	            FileOutputStream fs = new FileOutputStream(TWEETS_FILE_PATH);
@@ -189,7 +245,7 @@ public class ActivityHelper {
 	        }
 	}
 	
-	private boolean hasTweets(TwitterResult result){
+	private static boolean hasTweets(TwitterResult result){
 		if(result != null && result.getTweets() != null && result.getTweets().size()>0){
 			return true;
 		} else {

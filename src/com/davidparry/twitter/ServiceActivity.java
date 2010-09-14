@@ -26,6 +26,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 package com.davidparry.twitter;
 
+import twitter4j.Query;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
@@ -216,9 +217,8 @@ public class ServiceActivity extends Activity implements ButlerActivity,TwitterP
 		prefs.setExcludeTerms(Util.getTrimDataFromField(exctext));
 		prefs.setAndTerms(Util.getTrimDataFromField(andtext));
 		prefs.setOrTerms(Util.getTrimDataFromField(ortext));
-		// need to run query here
-		TwitterQuery twitterQuery = new TwitterQuery(prefs.getAndTerms(),prefs.getOrTerms(),prefs.getExcludeTerms());
-		twitterQuery.validate();
+		
+		
 		long timevalue = getTimeValue();
 		mgr.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock
 				.elapsedRealtime(), timevalue, pi);

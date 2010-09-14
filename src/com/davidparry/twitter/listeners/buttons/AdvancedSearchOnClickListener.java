@@ -29,6 +29,9 @@ package com.davidparry.twitter.listeners.buttons;
 import twitter4j.AsyncTwitter;
 import twitter4j.AsyncTwitterFactory;
 import twitter4j.Query;
+import android.app.Activity;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -36,6 +39,7 @@ import android.widget.Toast;
 
 import com.davidparry.twitter.ButlerActivity;
 import com.davidparry.twitter.R;
+import com.davidparry.twitter.common.ActivityHelper;
 import com.davidparry.twitter.exception.QueryValidationException;
 import com.davidparry.twitter.twitter4j.ButlerTwitterAdapter;
 import com.davidparry.twitter.twitter4j.TwitterQuery;
@@ -47,11 +51,14 @@ import com.davidparry.twitter.twitter4j.TwitterQuery;
 public class AdvancedSearchOnClickListener implements OnClickListener{
 	private static final String tag = "AdvancedSearchOnClickListener";
 	private ButlerActivity ba;
+	private ActivityHelper helper;
+
 	/**
 	 * 
 	 */
 	public AdvancedSearchOnClickListener(ButlerActivity ba) {
-		this.ba = ba;
+		this.ba = ba;		
+		this.helper = new ActivityHelper((Activity)ba);
 	}
 
 	public void onClick(View v) {
@@ -66,6 +73,7 @@ public class AdvancedSearchOnClickListener implements OnClickListener{
 	    try {
 			twitterQuery.validate();
 			Query query = new Query(twitterQuery.getQuery());
+			this.helper.initProperties(query);
 			AsyncTwitter twitter = new AsyncTwitterFactory(adapter).getInstance();
 			twitter.search(query);
 		} catch (QueryValidationException e) {

@@ -61,14 +61,11 @@
 					android:layout_width="50dip" android:layout_height="50dip"
 					android:src="@android:drawable/ic_menu_more"
 					android:layout_marginLeft="10dip" android:layout_marginTop="5dip" />
-				<ImageButton android:id="@+id/follow_button"
-					android:layout_width="50dip" android:layout_height="50dip"
-					android:src="@android:drawable/ic_dialog_map"
-					android:layout_marginTop="5dip" android:layout_marginLeft="5dip" />	
+				
 				<ImageButton android:id="@+id/list_button"
 					android:layout_width="50dip" android:layout_height="50dip"
 					android:src="@android:drawable/ic_menu_recent_history"
-					android:layout_marginTop="5dip" android:layout_marginLeft="10dip" />
+					android:layout_marginTop="5dip" android:layout_marginLeft="70dip" />
 			</LinearLayout>
 
 		</LinearLayout>
