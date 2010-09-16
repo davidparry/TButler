@@ -32,12 +32,14 @@ import android.content.Intent;
 
 public interface ButlerActivity {
 
-	static final String TWITTER_SOURCE ="source:TButler ";
+	//static final String TWITTER_SOURCE ="source:TButler ";
 	ProgressDialog getDialog(String title,String msg);
 	String getTextFieldValue(int id);
 	boolean isChecked(int id);
 	void closeDialog();
 	Context getContext();
 	void runActivity(Intent intent);
+	void setFocusOnItem(int id);
+	void clearItem(int id);
 	
 }

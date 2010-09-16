@@ -262,4 +262,14 @@ public class TweetList extends ListActivity implements ButlerActivity,
 		return helper.readTweets();
 	}
 
+	public void setFocusOnItem(int id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void clearItem(int id) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

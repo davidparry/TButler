@@ -38,6 +38,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
@@ -49,6 +50,7 @@ import com.davidparry.twitter.common.TwitterResult;
 import com.davidparry.twitter.listeners.buttons.AdvancedSearchOnClickListener;
 import com.davidparry.twitter.listeners.buttons.BasicSearchOnClickListener;
 import com.davidparry.twitter.listeners.buttons.ListTweetsOnClickListener;
+import com.davidparry.twitter.listeners.buttons.TweetActionButtonListener;
 import com.davidparry.twitter.widgets.OptionMenu;
 
 public class ButlerTabActivity extends TabActivity implements ButlerActivity,TwitterPersistence {
@@ -94,11 +96,16 @@ public class ButlerTabActivity extends TabActivity implements ButlerActivity,Twi
 	    ImageButton list_button = (ImageButton) findViewById(R.id.list_button);
 	    list_button.setOnClickListener(new ListTweetsOnClickListener(this));
 	    
-	    
+	    setUpTweetingView();
 	    
 	    
     }
-	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		Log.d(tag, "onResume()");
+		setUpTweetingView();
+	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
@@ -136,7 +143,10 @@ public class ButlerTabActivity extends TabActivity implements ButlerActivity,Twi
 		}
 		return msg;
 	}
-
+	
+	public void setFocusOnItem(int id){
+		this.setFocusOnItem(id);
+	}
 	
 	
 	public boolean isChecked(int id) {
@@ -165,6 +175,34 @@ public class ButlerTabActivity extends TabActivity implements ButlerActivity,Twi
 		
 	}
 	
-	
+	private void setUpTweetingView() {
+		// tweeting and auth buttons	
+	    Button tweet_auth = (Button) findViewById(R.id.tweet_auth);
+		boolean authorized = helper.isAuthorized();
+		EditText tweet_msg = (EditText) findViewById(R.id.tweet_msg);
+		if(authorized){
+			tweet_auth.setOnClickListener(new TweetActionButtonListener(this));
+			tweet_msg.setVisibility(View.VISIBLE);
+			tweet_auth.setText(R.string.tweet_action);
+		} else {
+			tweet_msg.setVisibility(View.INVISIBLE);
+			tweet_auth.setText(R.string.tweet_action);
+			tweet_auth.setOnClickListener(new OnClickListener() {
+				public void onClick(View v) {
+					Intent i = new Intent(v.getContext(), OAUTH.class); // Currently, how we get back to main activity.
+					v.getContext().startActivity(i);
+				}
+			
+			});
+		}
+	}
+	public void clearItem(int id) {
+		// if its not a EditText or if something else goes wrong do blow up 
+		// just for a clearing of text
+		try{
+			final EditText text = (EditText) this.findViewById(id);
+			text.getText().clear();
+		} catch(Exception er){}
+	}
 	
 }

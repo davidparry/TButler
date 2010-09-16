@@ -174,5 +174,17 @@ public class ProfileActivity extends Activity implements ButlerActivity {
 		
 	}
 
+
+	public void setFocusOnItem(int id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	public void clearItem(int id) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	
 }

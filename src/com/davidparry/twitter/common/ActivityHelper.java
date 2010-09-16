@@ -54,6 +54,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.davidparry.twitter.ButlerException;
+import com.davidparry.twitter.OAUTH;
 import com.davidparry.twitter.R;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
@@ -253,6 +254,12 @@ public class ActivityHelper {
 		}
 	}
 
-	
+	public boolean isAuthorized(){
+		SharedPreferences prefs = activity.getSharedPreferences("TWITTER_BUTLER", Context.MODE_PRIVATE);
+		if(prefs.getString(OAUTH.USER_TOKEN, null) == null || prefs.getString(OAUTH.USER_SECRET, null) == null) {
+			return false;
+		}
+		return true;
+	}
 		
 }

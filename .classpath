@@ -7,5 +7,7 @@
 	<classpathentry kind="lib" path="/opt/ewb/SharedLibs/commons-lang-2.5.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/Twitter4J"/>
 	<classpathentry kind="lib" path="/opt/ewb/SharedLibs/xstream-1.3.1.jar"/>
+	<classpathentry kind="lib" path="/opt/ewb/SharedLibs/signpost-core-1.2.1.jar"/>
+	<classpathentry kind="lib" path="/opt/ewb/SharedLibs/signpost-commonshttp4-1.2.1.jar" sourcepath="/TwitterButler/C:/opt/apps/OAuthTwitterExample/kaeppler-signpost-6e073b8/java-http.zip"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

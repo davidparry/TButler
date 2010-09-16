@@ -26,7 +26,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 package com.davidparry.twitter;
 
-import twitter4j.Query;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
@@ -58,7 +57,6 @@ import com.davidparry.twitter.common.TwitterResult;
 import com.davidparry.twitter.common.Util;
 import com.davidparry.twitter.exception.QueryValidationException;
 import com.davidparry.twitter.listeners.buttons.ListTweetsOnClickListener;
-import com.davidparry.twitter.twitter4j.TwitterQuery;
 import com.davidparry.twitter.widgets.OptionMenu;
 
 public class ServiceActivity extends Activity implements ButlerActivity,TwitterPersistence{
@@ -299,6 +297,16 @@ public class ServiceActivity extends Activity implements ButlerActivity,TwitterP
 
 	public void writeTweets(TwitterResult result) throws ButlerException {
 		helper.writeTweets(result);
+	}
+
+	public void setFocusOnItem(int id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void clearItem(int id) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

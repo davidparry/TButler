@@ -11,6 +11,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".OAUTH" android:label="Authorizing Tbutler for Twitter">
+			<intent-filter>
+				<action android:name="android.intent.action.VIEW" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.BROWSABLE" />
+				<data android:scheme="tbutler" android:host="twitt" />
+			</intent-filter>
+		</activity>
       <activity android:name=".TweetList" android:multiprocess="false" android:configChanges="orientation">
      </activity>
      <activity android:name=".InfoActivity" android:multiprocess="false" android:configChanges="orientation">

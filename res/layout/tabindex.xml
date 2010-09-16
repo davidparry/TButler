@@ -38,7 +38,7 @@
 			<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 				android:orientation="horizontal" android:layout_width="fill_parent"
 				android:layout_height="fill_parent" android:background="@color/solid_white" >
-				<EditText android:id="@+id/advanced_search_terms"
+				<EditText android:id="@+id/tweet_msg"
 					android:layout_width="fill_parent" android:layout_height="wrap_content"
 					android:focusable="true" android:layout_margin="3dip" android:maxLength="140" 
 					android:lines="4" android:hint="@string/tweet_prompt"

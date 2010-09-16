@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+
+	<LinearLayout android:orientation="vertical"
+		android:layout_width="fill_parent" android:layout_height="wrap_content" android:id="@+id/startLayout">
+		
+ <ImageButton android:id="@+id/search"
+				android:layout_width="50dip" android:layout_height="50dip"
+				android:src="@android:drawable/ic_menu_search"
+				android:layout_marginTop="5dip"
+				android:layout_marginLeft="5dip"
+				/>
+	</LinearLayout>
+
+</ScrollView>

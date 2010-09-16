@@ -44,7 +44,6 @@ public final class R {
         public static final int adv_list_button=0x7f070029;
         public static final int adv_more_button=0x7f070028;
         public static final int adv_search_button=0x7f070027;
-        public static final int advanced_search_terms=0x7f070021;
         public static final int and_search_terms=0x7f070016;
         public static final int back=0x7f07002a;
         public static final int back_to_results=0x7f07001b;
@@ -84,6 +83,7 @@ public final class R {
         public static final int tweetYouTube=0x7f070003;
         public static final int tweetYouTube1=0x7f070004;
         public static final int tweet_auth=0x7f070023;
+        public static final int tweet_msg=0x7f070021;
         public static final int wiz_andterm=0x7f070020;
         public static final int wiz_orterm=0x7f07001f;
     }
