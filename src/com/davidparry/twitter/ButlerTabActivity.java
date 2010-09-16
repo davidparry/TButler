@@ -145,7 +145,7 @@ public class ButlerTabActivity extends TabActivity implements ButlerActivity,Twi
 	}
 	
 	public void setFocusOnItem(int id){
-		this.setFocusOnItem(id);
+		this.findViewById(id).requestFocus();
 	}
 	
 	
