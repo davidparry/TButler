@@ -31,13 +31,13 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import twitter4j.Query;
-import android.app.Activity;
-import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -63,7 +63,7 @@ public class ActivityHelper {
 	private static final String tag = "ActivityHelper";
 	private Context activity;
 	private static String INTENT_MESSAGE_KEY = "com.davidparry.twitter.message";
-	private static String INTENT_RESULT_KEY = "com.davidparry.twitter.result";
+	//private static String INTENT_RESULT_KEY = "com.davidparry.twitter.result";
 	private static final String VERSION = "13";
 	public static final String TWEETS_FILE_PATH = "/sdcard/tbutler.ser";
 	private Map<String,String> userIcons = (Map<String,String>) Collections.synchronizedMap(new HashMap<String,String>());
@@ -167,26 +167,31 @@ public class ActivityHelper {
 		if(checkState()){
 			Log.d(tag,"inside writeTweets");
 			try{
-			TwitterResult old = readTweets();
-				if(hasTweets(old)){
-					if(hasTweets(result)){
-						SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this.activity);
-						int totalSize =  Integer.parseInt(prefs.getString("tweetcache", "100"));
-						// need to check for setting of amount to store
-						int tweetsize =  result.getTweets().size();
-						int oldsize = old.getTweets().size();
-					    int sum = tweetsize + oldsize;
-						if(sum >= totalSize){
-					    	int diff = sum -totalSize;
-					    	int end = oldsize- diff;
-							result.getTweets().addAll(old.getTweets().subList(0, end));
-					    }
-					} 
+				SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this.activity);
+				int totalSize =  Integer.parseInt(prefs.getString("tweetcache", "100"));
+					
+				TwitterResult old = readTweets();
+					if(hasTweets(old)){
+						if(hasTweets(result)){
+							List<Tweet> oldOnes = old.getTweets();
+							for(Tweet t: result.getTweets()){
+								oldOnes.add(0,t);
+							}
+							result.getTweets().clear();
+							result.getTweets().addAll(oldOnes);
+						} 
+					}
+					if(result.getTweets().size() > totalSize){
+						//List<Tweet> copy = Collections.unmodifiableList(result.getTweets());
+						List<Tweet> tmp = new ArrayList<Tweet>(result.getTweets());
+						Collections.copy(tmp, result.getTweets());
+						result.getTweets().clear();
+						result.getTweets().addAll(tmp.subList(0, totalSize));
+					}
+					writeXStreamObject(result);
+				} catch(Exception er){
+					Log.e(tag, "error in adding tweets ", er);
 				}
-				writeXStreamObject(result);
-			} catch(Exception er){
-				Log.e(tag, "error in adding tweets ", er);
-			}
 		}
 	}
 	public TwitterResult readTweets(){
@@ -219,7 +224,7 @@ public class ActivityHelper {
 		return mExternalStorageAvailable;
 	}
 	
-	private static TwitterResult readXStreamObject(){
+	private synchronized static TwitterResult readXStreamObject(){
 		  Log.d(tag, "Inside readXStream");
 		  XStream xs = new XStream(new DomDriver());
 		  TwitterResult result = new TwitterResult();
@@ -230,18 +235,31 @@ public class ActivityHelper {
 	            Log.d(tag, "results "+result);
 		    } catch (FileNotFoundException ex) {
 	            Log.e(tag, "Error reading XStreamFile", ex);
-	        }
+	            removeFile();
+		    }
 	        Log.d(tag, "Result"+result);
 	        return result;
 	}
+	private static synchronized void removeFile(){
+		try{
+			File file = new File(TWEETS_FILE_PATH);
+	        if(file.exists()){
+	        	file.delete();
+	        }
+		}catch(Exception er){
+			Log.e(tag,"Error removing file",er);
+		}
+	}
 	
-	private static void writeXStreamObject(TwitterResult result) throws ButlerException{
+	
+	private static synchronized void writeXStreamObject(TwitterResult result) throws ButlerException{
 		 XStream xs = new XStream();
 	        try {
 	            FileOutputStream fs = new FileOutputStream(TWEETS_FILE_PATH);
 	            xs.toXML(result, fs);
 	        } catch (FileNotFoundException e) {
 	           Log.e(tag, "Error writing XStream File", e);
+	           removeFile();
 	           throw new ButlerException(e);
 	        }
 	}

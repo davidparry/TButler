@@ -67,6 +67,11 @@ public class TwitterResult implements Serializable{
 		}
 		
 	}
+	/**
+	public void setTweets(List<Tweet> list){
+		this.tweets = list;
+	}
+	**/
 	public String getNextPage() {
 		return nextPage;
 	}

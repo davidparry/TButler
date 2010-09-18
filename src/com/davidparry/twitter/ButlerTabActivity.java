@@ -65,6 +65,7 @@ public class ButlerTabActivity extends TabActivity implements ButlerActivity,Twi
         super.onCreate(savedInstanceState);
         helper = new ActivityHelper(this);
         helper.showToastMessage(this.getIntent().getExtras());
+        helper.showWhatsNewDialog();
         analytics = new ButlerAnalytics();
         analytics.startTracking(this);
         TabHost tabHost = getTabHost();
